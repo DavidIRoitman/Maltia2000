@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;500;600;700;800&family=Libre+Franklin:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Assistant', sans-serif; -webkit-font-smoothing:antialiased; }
+  a { color:#7aa94e; text-decoration:none; }
+  a:hover { color:#5f8a3a; }
+  ::selection { background:#7aa94e; color:#fff; }
+  @media (max-width:900px){
+    .m-hero{ grid-template-columns:1fr !important; }
+    .m-hero .m-heroimg{ display:none !important; }
+    .m-2col{ grid-template-columns:1fr !important; }
+    .m-3col{ grid-template-columns:1fr !important; }
+    .m-nav{ display:none !important; }
+    .m-h1{ font-size:40px !important; }
+  }
+</style>
+</helmet>
+<div dir="{{ c.dir }}" style="background:#fbfbf8; color:#1b2430; min-height:100vh;">
+
+  <header style="position:sticky; top:0; z-index:50; background:rgba(251,251,248,.92); backdrop-filter:blur(10px); border-bottom:1px solid #e7e8e2;">
+    <div style="max-width:1180px; margin:0 auto; padding:14px 32px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <a href="#top" style="display:flex; align-items:center;">
+        <img src="assets/logo.png" alt="Maltia 2000" style="height:42px; width:auto; display:block;">
+      </a>
+      <nav style="display:flex; align-items:center; gap:28px;">
+        <div class="m-nav" style="display:flex; align-items:center; gap:26px; font-size:15px; font-weight:600; letter-spacing:.01em;">
+          <sc-for list="{{ c.nav }}" as="item" hint-placeholder-count="6">
+            <a href="#{{ item.id }}" style="color:#41505f;">{{ item.label }}</a>
+          </sc-for>
+        </div>
+        <button onClick="{{ toggle }}" style="font-family:'Assistant',sans-serif; cursor:pointer; border:1.5px solid #003060; background:transparent; color:#003060; font-weight:700; font-size:14px; padding:7px 16px; border-radius:999px; transition:all .18s;">{{ langBtnLabel }}</button>
+      </nav>
+    </div>
+  </header>
+
+  <section id="top" style="background:linear-gradient(135deg,#00233f 0%,#003060 55%,#013e79 100%); color:#fff; position:relative; overflow:hidden;">
+    <div class="m-hero" style="max-width:1180px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:center; min-height:520px;">
+      <div style="padding:72px 0;">
+        <div style="display:inline-flex; align-items:center; gap:10px; font-family:'Libre Franklin',sans-serif; font-weight:600; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:#9ec978; margin-bottom:26px;">
+          <span style="width:26px; height:2px; background:#7aa94e; display:inline-block;"></span>{{ c.eyebrow }}
+        </div>
+        <h1 class="m-h1" style="font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:56px; line-height:1.05; letter-spacing:-.02em; margin-bottom:6px;">{{ c.name }}</h1>
+        <div style="font-size:19px; font-weight:600; color:#8fb7e0; letter-spacing:.01em; margin-bottom:26px;">{{ c.legal }}</div>
+        <p style="font-size:19px; line-height:1.62; color:#d6e3f0; max-width:520px; font-weight:400;">{{ c.heroTag }}</p>
+        <div style="display:flex; gap:14px; margin-top:38px; flex-wrap:wrap;">
+          <a href="#services" style="background:#7aa94e; color:#fff; font-weight:700; font-size:15px; padding:14px 28px; border-radius:8px; transition:all .18s;">{{ c.ctaPrimary }}</a>
+          <a href="#contact" style="background:rgba(255,255,255,.09); color:#fff; font-weight:700; font-size:15px; padding:14px 28px; border-radius:8px; border:1px solid rgba(255,255,255,.22); transition:all .18s;">{{ c.ctaSecondary }}</a>
+        </div>
+      </div>
+      <div class="m-heroimg" style="align-self:stretch; display:flex; align-items:center; padding:56px 0;">
+        <div style="width:100%; aspect-ratio:4/5; border-radius:14px; overflow:hidden; box-shadow:0 30px 70px -30px rgba(0,0,0,.6); background:repeating-linear-gradient(45deg,#0b3a63,#0b3a63 14px,#0f426f 14px,#0f426f 28px); display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.14);">
+          <span style="font-family:'Courier New',monospace; font-size:13px; color:rgba(255,255,255,.55); letter-spacing:.05em; text-align:center; padding:20px;">{{ c.heroImgLabel }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="max-width:1180px; margin:0 auto; padding:96px 32px;">
+    <div class="m-2col" style="display:grid; grid-template-columns:.9fr 1.1fr; gap:64px; align-items:start;">
+      <div>
+        <div style="font-family:'Libre Franklin',sans-serif; font-weight:600; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:#7aa94e; margin-bottom:16px;">{{ c.aboutEyebrow }}</div>
+        <h2 style="font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:38px; line-height:1.12; letter-spacing:-.02em; color:#003060;">{{ c.aboutTitle }}</h2>
+      </div>
+      <div>
+        <p style="font-size:19px; line-height:1.75; color:#3a4653; text-wrap:pretty; margin-bottom:22px;">{{ c.overview }}</p>
+        <p style="font-size:19px; line-height:1.75; color:#3a4653; text-wrap:pretty;">{{ c.overview2 }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="history" style="background:#f2f3ee; border-top:1px solid #e7e8e2; border-bottom:1px solid #e7e8e2;">
+    <div style="max-width:1180px; margin:0 auto; padding:96px 32px;">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div style="font-family:'Libre Franklin',sans-serif; font-weight:600; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:#7aa94e; margin-bottom:14px;">{{ c.historyEyebrow }}</div>
+        <h2 style="font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:38px; letter-spacing:-.02em; color:#003060;">{{ c.historyTitle }}</h2>
+      </div>
+      <div class="m-3col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px;">
+        <sc-for list="{{ c.timeline }}" as="t" hint-placeholder-count="3">
+          <div style="background:#fff; border:1px solid #e2e4dd; border-radius:14px; padding:34px 30px; box-shadow:0 1px 0 rgba(0,0,0,.02);">
+            <div style="font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:34px; color:#7aa94e; margin-bottom:14px; letter-spacing:-.01em;">{{ t.year }}</div>
+            <div style="font-family:'Libre Franklin',sans-serif; font-weight:700; font-size:18px; color:#003060; margin-bottom:10px;">{{ t.head }}</div>
+            <p style="font-size:16px; line-height:1.65; color:#54606d;">{{ t.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="vision" style="max-width:1180px; margin:0 auto; padding:96px 32px;">
+    <div class="m-2col" style="display:grid; grid-template-columns:1fr 1fr; gap:28px;">
+      <div style="background:linear-gradient(150deg,#003060,#013e79); color:#fff; border-radius:16px; padding:48px 44px;">
+        <div style="font-family:'Libre Franklin',sans-serif; font-weight:600; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:#9ec978; margin-bottom:18px;">{{ c.visionLabel }}</div>
+        <p style="font-size:22px; line-height:1.6; font-weight:500; color:#eaf1f8; text-wrap:pretty;">{{ c.vision }}</p>
+      </div>
+      <div style="background:#fff; border:1px solid #e2e4dd; border-radius:16px; padding:48px 44px;">
+        <div style="font-family:'Libre Franklin',sans-serif; font-weight:600; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:#7aa94e; margin-bottom:18px;">{{ c.missionLabel }}</div>
+        <p style="font-size:22px; line-height:1.6; font-weight:500; color:#2e3a47; text-wrap:pretty;">{{ c.mission }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" style="background:#003060; color:#fff;">
+    <div style="max-width:1180px; margin:0 auto; padding:96px 32px;">
+      <div style="margin-bottom:52px;">
+        <div style="font-family:'Libre Franklin',sans-serif; font-weight:600; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:#9ec978; margin-bottom:14px;">{{ c.servicesEyebrow }}</div>
+        <h2 style="font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:38px; letter-spacing:-.02em;">{{ c.servicesTitle }}</h2>
+      </div>
+      <div class="m-3col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+        <sc-for list="{{ c.services }}" as="s" hint-placeholder-count="5">
+          <div style="{{ s.cardStyle }}">
+            <div style="{{ s.badgeStyle }}">{{ s.tag }}</div>
+            <div style="font-family:'Libre Franklin',sans-serif; font-weight:700; font-size:20px; line-height:1.25;">{{ s.name }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="achievements" style="max-width:1180px; margin:0 auto; padding:96px 32px;">
+    <div style="text-align:center; margin-bottom:56px;">
+      <div style="font-family:'Libre Franklin',sans-serif; font-weight:600; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:#7aa94e; margin-bottom:14px;">{{ c.achEyebrow }}</div>
+      <h2 style="font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:38px; letter-spacing:-.02em; color:#003060;">{{ c.achTitle }}</h2>
+    </div>
+    <div class="m-3col" style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px;">
+      <sc-for list="{{ c.achievements }}" as="a" hint-placeholder-count="3">
+        <div style="text-align:center; padding:14px;">
+          <div style="font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:62px; line-height:1; color:#7aa94e; letter-spacing:-.03em;">{{ a.stat }}</div>
+          <div style="width:40px; height:3px; background:#003060; margin:20px auto; border-radius:2px;"></div>
+          <div style="font-size:17px; line-height:1.5; color:#54606d; max-width:240px; margin:0 auto;">{{ a.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section id="contact" style="background:#f2f3ee; border-top:1px solid #e7e8e2;">
+    <div class="m-2col" style="max-width:1180px; margin:0 auto; padding:96px 32px; display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
+      <div>
+        <div style="font-family:'Libre Franklin',sans-serif; font-weight:600; font-size:13px; letter-spacing:.18em; text-transform:uppercase; color:#7aa94e; margin-bottom:16px;">{{ c.contactEyebrow }}</div>
+        <h2 style="font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:38px; letter-spacing:-.02em; color:#003060; margin-bottom:18px;">{{ c.contactTitle }}</h2>
+        <p style="font-size:19px; line-height:1.7; color:#3a4653; max-width:420px; text-wrap:pretty;">{{ c.contactText }}</p>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <a href="{{ c.phoneHref }}" style="display:flex; align-items:center; gap:18px; background:#fff; border:1px solid #e2e4dd; border-radius:12px; padding:22px 26px; transition:all .18s;">
+          <span style="width:44px; height:44px; border-radius:10px; background:#eef4e6; color:#5f8a3a; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:20px; flex-shrink:0;">☎</span>
+          <span style="display:flex; flex-direction:column; gap:2px;">
+            <span style="font-size:13px; font-weight:600; color:#8a95a1; letter-spacing:.04em; text-transform:uppercase;">{{ c.phoneLabel }}</span>
+            <span style="font-size:18px; font-weight:700; color:#1b2430; direction:ltr;">{{ c.phoneValue }}</span>
+          </span>
+        </a>
+        <a href="mailto:Maltia2000@gmail.com" style="display:flex; align-items:center; gap:18px; background:#fff; border:1px solid #e2e4dd; border-radius:12px; padding:22px 26px; transition:all .18s;">
+          <span style="width:44px; height:44px; border-radius:10px; background:#eef4e6; color:#5f8a3a; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; flex-shrink:0;">@</span>
+          <span style="display:flex; flex-direction:column; gap:2px;">
+            <span style="font-size:13px; font-weight:600; color:#8a95a1; letter-spacing:.04em; text-transform:uppercase;">{{ c.emailLabel }}</span>
+            <span style="font-size:18px; font-weight:700; color:#1b2430; direction:ltr;">Maltia2000@gmail.com</span>
+          </span>
+        </a>
+        <a href="https://www.facebook.com/share/1BU3RERS5X/" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:18px; background:#fff; border:1px solid #e2e4dd; border-radius:12px; padding:22px 26px; transition:all .18s;">
+          <span style="width:44px; height:44px; border-radius:10px; background:#e7eefb; color:#1877f2; display:flex; align-items:center; justify-content:center; font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:22px; flex-shrink:0;">f</span>
+          <span style="display:flex; flex-direction:column; gap:2px;">
+            <span style="font-size:13px; font-weight:600; color:#8a95a1; letter-spacing:.04em; text-transform:uppercase;">{{ c.fbLabel }}</span>
+            <span style="font-size:18px; font-weight:700; color:#1b2430;">{{ c.fbValue }}</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#00233f; color:#fff;">
+    <div style="max-width:1180px; margin:0 auto; padding:44px 32px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Libre Franklin',sans-serif; font-weight:800; font-size:20px; letter-spacing:-.01em;">Maltia 2000</div>
+        <div style="font-size:14px; color:#8fb7e0; margin-top:4px;">{{ c.legal }}</div>
+      </div>
+      <div style="font-size:14px; color:#7f97b3;">{{ c.copyright }}</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:760},&quot;lang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;en&quot;,&quot;he&quot;],&quot;default&quot;:&quot;en&quot;,&quot;tsType&quot;:&quot;'en' | 'he'&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+class Component extends DCLogic {
+  state = { userLang: null };
+
+  renderVals() {
+    const lang = this.state.userLang ?? this.props.lang ?? 'en';
+    const svc = (primary, tag, name) => ({
+      tag, name,
+      cardStyle: primary
+        ? "background:#7aa94e; border-radius:14px; padding:30px 26px; display:flex; flex-direction:column; gap:16px; min-height:150px; box-shadow:0 20px 40px -22px rgba(122,169,78,.7);"
+        : "background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12); border-radius:14px; padding:30px 26px; display:flex; flex-direction:column; gap:16px; min-height:150px;",
+      badgeStyle: primary
+        ? "font-family:'Libre Franklin',sans-serif; font-weight:700; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.9);"
+        : "font-family:'Libre Franklin',sans-serif; font-weight:700; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:#9ec978;"
+    });
+
+    const CONTENT = {
+      en: {
+        dir: 'ltr',
+        name: 'Maltia 2000',
+        legal: 'Trade & Marketing Ltd.',
+        eyebrow: 'Established 2000',
+        heroTag: 'A family-owned Israeli company delivering reliable paid parking services and quality building materials — built on integrity, professionalism, and long-term customer relationships.',
+        heroImgLabel: '[ parking facility photo ]',
+        ctaPrimary: 'Our Services',
+        ctaSecondary: 'Get in Touch',
+        nav: [
+          { id: 'about', label: 'About' },
+          { id: 'history', label: 'History' },
+          { id: 'vision', label: 'Vision' },
+          { id: 'services', label: 'Services' },
+          { id: 'achievements', label: 'Achievements' },
+          { id: 'contact', label: 'Contact' }
+        ],
+        aboutEyebrow: 'Who We Are',
+        aboutTitle: 'A family business built on trust since 2000',
+        overview: 'Maltia 2000 - Trade & Marketing Ltd. is a family-owned Israeli company established in 2000. The company initially specialized in the sale of building materials and sanitary products for residential and commercial projects.',
+        overview2: 'In 2010, the company expanded its operations by opening a paid parking facility, which has since become its primary business activity. We remain committed to providing reliable service, professionalism, and long-term customer satisfaction.',
+        historyEyebrow: 'Our History',
+        historyTitle: 'More than two decades of growth',
+        timeline: [
+          { year: '2000', head: 'The company is founded', text: 'Established as a family-owned business supplying building materials and sanitary products for residential and commercial projects.' },
+          { year: '2010', head: 'Expansion into parking', text: 'The company opened a paid parking facility, broadening its operations and building a new core of long-term customers.' },
+          { year: 'Today', head: 'A trusted operation', text: 'Paid parking is now our primary business, while we continue to uphold our commitment to quality service and customer satisfaction.' }
+        ],
+        visionLabel: 'Our Vision',
+        vision: 'To be a trusted family-owned business recognized for reliability, professionalism, and excellent customer service.',
+        missionLabel: 'Our Mission',
+        mission: 'To provide dependable services and quality products while building long-term relationships with our customers through integrity, efficiency, and personal attention.',
+        servicesEyebrow: 'What We Offer',
+        servicesTitle: 'Products & Services',
+        services: [
+          svc(true, 'Primary business', 'Paid parking services'),
+          svc(false, 'Materials', 'Building materials'),
+          svc(false, 'Materials', 'Sanitary products'),
+          svc(false, 'Supplies', 'Construction & renovation supplies'),
+          svc(false, 'Service', 'Customer sales & support')
+        ],
+        achEyebrow: 'Track Record',
+        achTitle: 'Our Achievements',
+        achievements: [
+          { stat: '2000', label: 'Family-owned and operating successfully since' },
+          { stat: '2010', label: 'Expanded with the opening of a paid parking facility' },
+          { stat: '25+', label: 'Years of business experience and lasting customer relationships' }
+        ],
+        contactEyebrow: 'Get in Touch',
+        contactTitle: "Let's talk",
+        contactText: 'Reach out for parking services, product enquiries, or general questions. We maintain our official Facebook business page as our primary online presence.',
+        phoneLabel: 'Phone',
+        phoneValue: '+972 54-445-0430',
+        phoneHref: 'tel:+972544450430',
+        emailLabel: 'Email',
+        fbLabel: 'Facebook',
+        fbValue: 'Our business page',
+        copyright: '© 2000–2026 Maltia 2000 - Trade & Marketing Ltd. All rights reserved.'
+      },
+      he: {
+        dir: 'rtl',
+        name: 'Maltia 2000',
+        legal: 'סחר ושיווק בע"מ',
+        eyebrow: 'נוסדה בשנת 2000',
+        heroTag: 'חברה משפחתית ישראלית המעניקה שירותי חניה בתשלום ומוצרי בניין איכותיים — מתוך מחויבות לאמינות, מקצועיות ולקשרים ארוכי טווח עם הלקוחות.',
+        heroImgLabel: '[ תמונת מגרש החניה ]',
+        ctaPrimary: 'השירותים שלנו',
+        ctaSecondary: 'צרו קשר',
+        nav: [
+          { id: 'about', label: 'אודות' },
+          { id: 'history', label: 'היסטוריה' },
+          { id: 'vision', label: 'חזון' },
+          { id: 'services', label: 'שירותים' },
+          { id: 'achievements', label: 'הישגים' },
+          { id: 'contact', label: 'צרו קשר' }
+        ],
+        aboutEyebrow: 'מי אנחנו',
+        aboutTitle: 'עסק משפחתי הבנוי על אמון מאז שנת 2000',
+        overview: 'חברת Maltia 2000 - סחר ושיווק בע"מ היא חברה משפחתית ישראלית שהוקמה בשנת 2000. בתחילת דרכה התמחתה החברה במכירת חומרי בניין וכלים סניטריים לפרויקטים פרטיים ומסחריים.',
+        overview2: 'בשנת 2010 הרחיבה החברה את פעילותה ופתחה מגרש חניה בתשלום, אשר עם השנים הפך לתחום הפעילות המרכזי שלה. החברה מחויבת למתן שירות אמין, מקצועי ואיכותי ולבניית קשרים ארוכי טווח עם לקוחותיה.',
+        historyEyebrow: 'ההיסטוריה שלנו',
+        historyTitle: 'למעלה משני עשורים של צמיחה',
+        timeline: [
+          { year: '2000', head: 'הקמת החברה', text: 'החברה נוסדה כעסק משפחתי בתחום חומרי הבניין והכלים הסניטריים לפרויקטים פרטיים ומסחריים.' },
+          { year: '2010', head: 'הרחבה לתחום החניה', text: 'החברה פתחה מגרש חניה בתשלום, הרחיבה את פעילותה וביססה גרעין חדש של לקוחות קבועים.' },
+          { year: 'כיום', head: 'פעילות מבוססת', text: 'מגרש החניה הוא תחום הפעילות המרכזי שלנו, לצד שמירה על מחויבות לשירות איכותי ולשביעות רצון הלקוחות.' }
+        ],
+        visionLabel: 'החזון שלנו',
+        vision: 'להיות חברה משפחתית מובילה ואמינה, המעניקה שירות מקצועי ואיכותי, תוך שמירה על אמינות, מקצועיות ושביעות רצון הלקוחות.',
+        missionLabel: 'הייעוד שלנו',
+        mission: 'להעניק ללקוחותינו שירות אמין, יעיל ואישי, לצד אספקת מוצרים איכותיים ופתרונות המתאימים לצורכי הלקוחות, תוך יצירת קשרים ארוכי טווח המבוססים על אמון.',
+        servicesEyebrow: 'מה אנחנו מציעים',
+        servicesTitle: 'מוצרים ושירותים',
+        services: [
+          svc(true, 'תחום מרכזי', 'הפעלת מגרש חניה בתשלום'),
+          svc(false, 'חומרים', 'מכירת חומרי בניין'),
+          svc(false, 'חומרים', 'מכירת כלים סניטריים'),
+          svc(false, 'אספקה', 'ציוד לבנייה ושיפוצים'),
+          svc(false, 'שירות', 'שירות ומכירה ללקוחות פרטיים ועסקיים')
+        ],
+        achEyebrow: 'הישגים',
+        achTitle: 'ההישגים שלנו',
+        achievements: [
+          { stat: '2000', label: 'חברה משפחתית פעילה בהצלחה מאז שנת' },
+          { stat: '2010', label: 'הרחבת פעילות עם פתיחת מגרש חניה בתשלום' },
+          { stat: '25+', label: 'שנות ניסיון בשירות לקוחות ובניהול עסק' }
+        ],
+        contactEyebrow: 'צרו קשר',
+        contactTitle: 'נשמח לשמוע מכם',
+        contactText: 'פנו אלינו בנוגע לשירותי חניה, מוצרים או כל שאלה. החברה מפעילה עמוד פייסבוק רשמי המשמש כפלטפורמת הנוכחות המקוונת שלה.',
+        phoneLabel: 'טלפון',
+        phoneValue: '054-445-0430',
+        phoneHref: 'tel:0544450430',
+        emailLabel: 'דוא"ל',
+        fbLabel: 'פייסבוק',
+        fbValue: 'עמוד העסק שלנו',
+        copyright: '© 2000–2026 Maltia 2000 - סחר ושיווק בע"מ. כל הזכויות שמורות.'
+      }
+    };
+
+    return {
+      c: CONTENT[lang],
+      langBtnLabel: lang === 'en' ? 'עברית' : 'English',
+      toggle: () => this.setState(s => {
+        const cur = s.userLang ?? this.props.lang ?? 'en';
+        return { userLang: cur === 'en' ? 'he' : 'en' };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
